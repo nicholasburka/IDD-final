@@ -1,7 +1,7 @@
 <html>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Mini Me</title>
-	<link rel="icon" href="">
+	<link rel="stylesheet" href="style.css">
 <head>
 	<style>
 	</style>
@@ -21,8 +21,7 @@
 					  <span class="minute">00</span>
 					  <span class="colon">:</span>
 					  <span class="second">00</span>
-					  <span class="colon ms-colon">:</span>
-					  <span class="millisecond">00</span>
+
 					</div>
 					<div class="buttons">
 					  <button class="start">Start</button>
@@ -31,31 +30,8 @@
 					</div>
 				</div>
 			</p>
+			<p>task 2: </p>
 			<p></p>
-			<p>break task 2</p>
-
-			<p>
-				<div class="wrapper">
-					<div class="time">
-					  <span class="hour">00</span>
-					  <span class="colon">:</span>
-					  <span class="minute">00</span>
-					  <span class="colon">:</span>
-					  <span class="second">00</span>
-					  <span class="colon ms-colon">:</span>
-					  <span class="millisecond">00</span>
-					</div>
-					<div class="buttons">
-					  <button class="start">Start</button>
-					  <button class="stop">Stop</button>
-					  <button class="reset">Reset</button>
-					</div>
-				</div>
-				
-
-				
-				
-			</p>
 		</li>
 	</div>
 	<script>
@@ -113,7 +89,7 @@
 		}
 
   		function putValue() {
-			document.querySelector(".millisecond").innerText = ms;
+
 			document.querySelector(".second").innerText = sec;
 			document.querySelector(".minute").innerText = min;
 			document.querySelector(".hour").innerText = hr;
