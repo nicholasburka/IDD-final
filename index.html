@@ -21,6 +21,37 @@
 		width: clamp(30px, 5vw, 40px);
 		margin-left: 5px;
 	}
+	li p {
+		margin-left: 5px;
+		width: 20vw;
+		text-align: center;
+		overflow-wrap: break-word;
+	}
+	#completed-list {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		left: 10px;
+		top: 20px;
+		/*width: 30vw;*/
+	}
+	#completed-list li {
+		flex-direction: row;
+	}
+	#completed-header {
+		color: orange;
+	}
+	.removing {
+		animation: fade .5s;
+	}
+	@keyframes fade {
+		0% {
+			opacity: 100;
+		}
+		100% {
+			opacity: 0;
+		}
+	}
 	</style>
 </head>
 <body>
@@ -40,6 +71,9 @@
 		  <button class="reset">Reset</button>
 		</div>
 	</div>
+	<ul id="completed-list">
+		<li id="completed-header">completed tasks</li>
+	</ul>
 	<div id="entry-box">
 		<input type="text" id="new-task">
 		<input type="button" id="add-task" value="+" onclick="add_task()">
@@ -47,13 +81,7 @@
 		<!-- plus sign here -->
 	</div>
 	<ul id="tasks">
-		<li><p>sample task 1</p>
-			<p>
-				
-				</div>
-			</p>
-			<p>task 2: </p>
-			<p></p>
+		<li>
 		</li>
 	</ul>
 	<script>
@@ -110,6 +138,9 @@
 			putValue();
 		}
 
+		count = 1;
+		remove_anim_time = 300;
+
   		function putValue() {
 			document.querySelector(".second").innerText = sec;
 			document.querySelector(".minute").innerText = min;
@@ -118,24 +149,42 @@
 
   		function finish_task(e) {
   			const task = document.getElementById(e.target.title);
-  			var task_div = document.getElementById('tasks');
-  			task_div.removeChild(task);
+  			var task_list = document.getElementById('tasks');
+  			var completed_list = document.getElementById('completed-list');
+
+  			task.className = "removing";
+  			setTimeout(() => {
+  				const finished_task = document.createElement('li');
+  				const task_text = document.createElement('p');
+  				finished_task.appendChild(task_text);
+  				finished_task.innerText = task.innerText;
+  				task_text.innerText = task.id;
+
+  				completed_list.appendChild(finished_task);
+  				task_list.removeChild(task);
+  			}, remove_anim_time)
   		}
   		function remove_task(e) {
   			const task = document.getElementById(e.target.title);
   			var task_div = document.getElementById('tasks');
-  			task_div.removeChild(task);
+
+  			task.className = "removing";
+  			setTimeout(() => {
+  				task_div.removeChild(task);
+  			}, remove_anim_time)
   		}
 
   		function create_task(task) {
   			var task_div = document.getElementById('tasks');
 
   			const new_task = document.createElement('li');
+  			const task_text = document.createElement('p');
   			const finish = document.createElement('input');
   			const remove = document.createElement('input');
 
-  			new_task.innerText = task;
+  			new_task.innerText = count + ".  ";//task;
   			new_task.id=task;
+  			task_text.innerText = task;
   			finish.type = "button";
   			finish.value= "√";
   			finish.title=task;
@@ -145,10 +194,13 @@
   			remove.title=task;
   			remove.onclick = remove_task;
 
+  			new_task.appendChild(task_text);
   			new_task.appendChild(finish);
   			new_task.appendChild(remove);
 
   			task_div.appendChild(new_task);
+
+  			count = count + 1;
   		}
   		
 
