@@ -4,36 +4,58 @@
 	<link rel="stylesheet" href="style.css">
 <head>
 	<style>
+	body {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+	}
+	#add-task {
+		width: 10vw;
+	}
+	li {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+	}
+	li input {
+		width: clamp(30px, 5vw, 40px);
+		margin-left: 5px;
+	}
 	</style>
 </head>
 <body>
+	
+	<div class="wrapper">
+		<div class="time">
+		  <span class="hour">00</span>
+		  <span class="colon">:</span>
+		  <span class="minute">00</span>
+		  <span class="colon">:</span>
+		  <span class="second">00</span>
+
+		</div>
+		<div class="buttons">
+		  <button class="start">Start</button>
+		  <button class="stop">Stop</button>
+		  <button class="reset">Reset</button>
+		</div>
+	</div>
 	<div id="entry-box">
+		<input type="text" id="new-task">
+		<input type="button" id="add-task" value="+" onclick="add_task()">
 		<!-- text entry field here -->
 		<!-- plus sign here -->
 	</div>
 	<ul id="tasks">
 		<li><p>sample task 1</p>
 			<p>
-				<div class="wrapper">
-					<div class="time">
-					  <span class="hour">00</span>
-					  <span class="colon">:</span>
-					  <span class="minute">00</span>
-					  <span class="colon">:</span>
-					  <span class="second">00</span>
-
-					</div>
-					<div class="buttons">
-					  <button class="start">Start</button>
-					  <button class="stop">Stop</button>
-					  <button class="reset">Reset</button>
-					</div>
+				
 				</div>
 			</p>
 			<p>task 2: </p>
 			<p></p>
 		</li>
-	</div>
+	</ul>
 	<script>
 		
 		let hr = min = sec = ms = "0" + 0,
@@ -89,10 +111,55 @@
 		}
 
   		function putValue() {
-
 			document.querySelector(".second").innerText = sec;
 			document.querySelector(".minute").innerText = min;
 			document.querySelector(".hour").innerText = hr;
+  		}
+
+  		function finish_task(e) {
+  			const task = document.getElementById(e.target.title);
+  			var task_div = document.getElementById('tasks');
+  			task_div.removeChild(task);
+  		}
+  		function remove_task(e) {
+  			const task = document.getElementById(e.target.title);
+  			var task_div = document.getElementById('tasks');
+  			task_div.removeChild(task);
+  		}
+
+  		function create_task(task) {
+  			var task_div = document.getElementById('tasks');
+
+  			const new_task = document.createElement('li');
+  			const finish = document.createElement('input');
+  			const remove = document.createElement('input');
+
+  			new_task.innerText = task;
+  			new_task.id=task;
+  			finish.type = "button";
+  			finish.value= "√";
+  			finish.title=task;
+  			finish.onclick = finish_task;
+  			remove.type = "button"
+  			remove.value= "x";
+  			remove.title=task;
+  			remove.onclick = remove_task;
+
+  			new_task.appendChild(finish);
+  			new_task.appendChild(remove);
+
+  			task_div.appendChild(new_task);
+  		}
+  		
+
+  		function startup() {
+  			//local storage for list of tasks
+  			//add them to DOM
+  		}
+
+  		function add_task() {
+  			const task = document.getElementById("new-task").value;
+  			create_task(task);
   		}
 	</script>
 </body>
