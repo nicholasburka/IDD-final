@@ -51,7 +51,7 @@
 	function onMessageArrived(message) {
 		console.log("onMessageArrived"+message.payloadString);
 		//if two devices respond at same time
-		if (message.payload.substr(0,net_id_length) === this_net_id) {
+		if (message.payloadString.substr(0,net_id_length) === this_net_id) {
 			console.log("received handshake netid conf from server");
 			client.unsubscribe('oldphone-handshake');
 			client.subscribe(this_net_id);
