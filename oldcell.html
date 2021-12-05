@@ -31,12 +31,12 @@
 		mqtt = Paho.MQTT;
 		console.log(mqtt);
 		//from https://www.npmjs.com/package/paho-mqtt
-		client = new mqtt.Client('farlab.infosci.cornell.edu', Number(8883), "clientId");
+		client = new mqtt.Client('farlab.infosci.cornell.edu', Number(1883), "clientId");
 
 		client.onConnectionLost = onConnectionLost;
 		client.onMessageArrived = onMessageArrived;
 
-		client.connect({onSuccess:onConnect, uris:['ws://farlab.infosci.cornell.edu:8883']});
+		client.connect({onSuccess:onConnect, userName: 'idd', password:'device@theFarm', uris:['ws://farlab.infosci.cornell.edu:8883']});
 
 		var this_net_id = 0;
 		const net_id_length = 5;
@@ -58,7 +58,9 @@
 			message = new mqtt.Message(this_net_id);
 			message.destinationName = 'oldphone-handshake';
 			client.send(message);
+			console.log('connected');
 		}
+		console.log('test');
 
 		function onMessageArrived(message) {
 			console.log("onMessageArrived"+message.payloadString);
