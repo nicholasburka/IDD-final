@@ -1,0 +1,54 @@
+<html>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Old Cell</title>
+<head>
+<body>
+	<!-- from https://gist.github.com/prof3ssorSt3v3/70f26dbe3a8eae0f15adeb745418e863 https://www.youtube.com/watch?v=dbrez37HlJM -->
+	<main>
+        <form action="#" id="myform" enctype="multipart/form-data">
+            <label for="capture">Capture Media</label>
+            
+            <input type="file" 
+            id="capture" 
+            accept="image/*,video/*,audio/*" 
+            capture 
+            multiple />
+            
+            <br/>
+            <input type="submit" value="Process" />
+        </form>
+        <p><img src="" id="img" alt="from phone"/></p>
+        <p>
+            <audio src="" id="audio" controls></audio>
+        </p>
+        <p>
+            <video src="" id="video" controls></video>
+        </p>
+    </main>    
+		<script>
+		document.addEventListener('DOMContentLoaded', (ev)=>{
+		            let form = document.getElementById('myform');
+		            //get the captured media file
+		            let input = document.getElementById('capture');
+		            
+		            input.addEventListener('change', (ev)=>{
+		                console.dir( input.files[0] );
+		                if(input.files[0].type.indexOf("image/") > -1){
+		                    let img = document.getElementById('img');
+		                    img.src = window.URL.createObjectURL(input.files[0]);
+		                }
+		                else if(input.files[0].type.indexOf("audio/") > -1 ){
+		                    let audio = document.getElementById('audio');
+		                    audio.src = window.URL.createObjectURL(input.files[0]);
+		                }
+		                else if(input.files[0].type.indexOf("video/") > -1 ){
+		                    let video = document.getElementById('video');
+		                    video.src=window.URL.createObjectURL(input.files[0]);
+		                }
+		                
+		                
+		            })
+		            
+		        })
+	</script>
+</body>

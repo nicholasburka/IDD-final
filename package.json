@@ -1,0 +1,22 @@
+{
+  "name": "idd-final-old-phone-matrix",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholasburka/IDD-final.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicholasburka/IDD-final/issues"
+  },
+  "homepage": "https://github.com/nicholasburka/IDD-final#readme",
+  "dependencies": {
+    "paho-mqtt": "^1.1.0"
+  }
+}
