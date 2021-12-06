@@ -2,11 +2,24 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Old Cell</title>
+	<style>
+		body {
+			margin: 0;
+		}
+		canvas {
+			color: black;
+		}
+	</style>
 </head>
 <body>
+	<canvas id="canvas" style="width: 100vw; height: 100vh"></canvas>
 	 <script src="paho-mqtt.js"
   type="text/javascript"></script>
 	<script>
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+
+
 	mqtt = Paho.MQTT;
 	console.log(mqtt);
 	//from https://www.npmjs.com/package/paho-mqtt
@@ -19,15 +32,17 @@
 		onFailure:onFailure,
 		userName: 'idd', 
 		password:'device@theFarm', 
-		uris:['ws://farlab.infosci.cornell.edu:1883', 'ws://farlab.infosci.cornell.edu:8883', 'ws://broker.hivemq.com:8000/mqtt'],
+		uris:['ws://broker.hivemq.com:8000/mqtt'],
 		reconnect: true
 		//uris:['ws://broker.hivemq.com:8000/mqtt']
+		//'ws://farlab.infosci.cornell.edu:1883', 'ws://farlab.infosci.cornell.edu:8883', 
 	});
 
 	var this_net_id = 0;
 	const net_id_length = 5;
 
 	//from https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+
 	function rand_id(length) {
 		var result = '';
 		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -37,24 +52,47 @@
 		}
 		return result;
 	}
+	//https://stackoverflow.com/questions/23104582/scaling-an-image-to-fit-on-canvas
+	function drawScaledImage(img, ctx) {
+		var canv = ctx.canvas;
+		var hRatio = canvas.width/ img.width;
+		var vRatio = canvas.height/img.height;
+		var ratio = Math.min(hRatio, vRatio);
+		var centerShift_x = (canvas.width - img.width*ratio) / 2;
+		var centerShift_y = (canvas.height - img.height*ratio) / 2;
+		ctx.clearRect(0,0,canvas.width, canvas.height);
+		ctx.drawImage(img, 0,0, img.width, img.height, centerShift_x, centerShift_y, img.width*ratio, img.height*ratio);
+	}
+
+	this_net_id = rand_id(net_id_length);
+	handshook = false;
 
 	function onConnect() {
-		client.subscribe('oldphone-handshake');
-		this_net_id = rand_id(net_id_length);
-		message = new mqtt.Message(this_net_id);
-		message.destinationName = 'oldphone-handshake';
-		client.send(message);
+		client.subscribe('oldphone/handshake');
+		if (!handshook) {
+			message = new mqtt.Message(this_net_id);
+			message.destinationName = 'oldphone/handshake';
+			client.send(message);
+		}
 		console.log('connected');
 	}
 	console.log('test');
 
 	function onMessageArrived(message) {
-		console.log("onMessageArrived"+message.payloadString);
+		console.log("onMessageArrived: "+message.payloadString);
 		//if two devices respond at same time
-		if (message.payloadString.substr(0,net_id_length) === this_net_id) {
+		if (message.payloadString.substr(0,3) === "ACK" && message.payloadString.substr(3,3+net_id_length) === this_net_id) {
 			console.log("received handshake netid conf from server");
-			client.unsubscribe('oldphone-handshake');
+			client.unsubscribe('oldphone/handshake');
 			client.subscribe(this_net_id);
+		} else if (message.payloadString.length > 10) {
+			//https://moonbooks.org/Articles/How-to-add-a-base64-encoded-image-in-a-html-canvas-using-javascript-/
+			console.log("drawing img");
+			var image = new Image();
+			image.onload = function() {
+				drawScaledImage(image, ctx);
+			};
+			image.src = "data:img/jpg;base64,"+message.payloadString;
 		}
 	}
 
