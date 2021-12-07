@@ -23,7 +23,7 @@
 	mqtt = Paho.MQTT;
 	console.log(mqtt);
 	//from https://www.npmjs.com/package/paho-mqtt
-	client = new mqtt.Client('farlab.infosci.cornell.edu', Number(1883), "clientId");
+	client = new mqtt.Client('farlab.infosci.cornell.edu', Number(8083), "clientId");
 
 	client.onConnectionLost = onConnectionLost;
 	client.onMessageArrived = onMessageArrived;
@@ -32,7 +32,10 @@
 		onFailure:onFailure,
 		userName: 'idd', 
 		password:'device@theFarm', 
-		uris:['ws://broker.hivemq.com:8000/mqtt'],
+		uris:['ws://100.64.0.108:8083'
+		],
+		//uris:['wss://broker.hivemq.com:8000/mqtt'],
+		//useSSL: true,
 		reconnect: true
 		//uris:['ws://broker.hivemq.com:8000/mqtt']
 		//'ws://farlab.infosci.cornell.edu:1883', 'ws://farlab.infosci.cornell.edu:8883', 
