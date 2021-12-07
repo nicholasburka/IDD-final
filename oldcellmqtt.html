@@ -66,15 +66,17 @@
 
 	this_net_id = rand_id(net_id_length);
 	handshook = false;
+	handshake_addr = 'oldphone/handshake6'
 
 	function onConnect() {
-		client.subscribe('oldphone/handshake');
+		client.subscribe(handshake_addr);
 		if (!handshook) {
 			message = new mqtt.Message(this_net_id);
-			message.destinationName = 'oldphone/handshake';
+			message.destinationName = handshake_addr;
 			client.send(message);
 		}
 		console.log('connected');
+		client.subscribe(this_net_id);
 	}
 	console.log('test');
 
@@ -83,7 +85,7 @@
 		//if two devices respond at same time
 		if (message.payloadString.substr(0,3) === "ACK" && message.payloadString.substr(3,3+net_id_length) === this_net_id) {
 			console.log("received handshake netid conf from server");
-			client.unsubscribe('oldphone/handshake');
+			client.unsubscribe(handshake_addr);
 			client.subscribe(this_net_id);
 		} else if (message.payloadString.length > 10) {
 			//https://moonbooks.org/Articles/How-to-add-a-base64-encoded-image-in-a-html-canvas-using-javascript-/
