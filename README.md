@@ -1,7 +1,6 @@
 # Final Project
 by Nicholas Burka (nab262)
 
-
 and Jeongmin Huh (jh2229)
 
 ## Big Idea
@@ -12,5 +11,9 @@ We’ve thought of several potential use cases, scaling in anticipated complexit
 
 
 ## Parts Needed
-Batch of old phones to test (already have)
-Cables to charge phones and connect them to computer (already have, micro USB/USB-C/iPhone)
+Batch of old phones to test
+
+Spacedesk (software) installed on the phone and computer
+
+
+
