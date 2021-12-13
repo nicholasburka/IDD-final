@@ -9,3 +9,6 @@ We have a batch of old cell phones one of our team members purchased from a cell
 We’ve thought of several potential use cases, scaling in anticipated complexity. Firstly, an additional display could hold “sticky notes”, like helpful reminders and daily motivational quotes. The music recording experience could benefit from a mobile terminal to perform simple recording functions (start recording, switch tracks, move the playback back and forwards).
 
 
+## Parts Needed
+Batch of old phones to test (already have)
+Cables to charge phones and connect them to computer (already have, micro USB/USB-C/iPhone)
