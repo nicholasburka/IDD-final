@@ -87,3 +87,4 @@ to display on the HTML5 canvas.<br>
 The prototype during demo day, working across 7 screen containers on 4 devices.<br>
 
 [Jeongmin and Nicholas pretending to be one body, using the completed 'ManyFrom1' Prototype](https://www.youtube.com/watch?v=doB3IrJ9eHw)
+[Jeongmin dances using the completed 'ManyFrom1' Prototype](https://www.youtube.com/watch?v=VvDZ9xNgx2U)
