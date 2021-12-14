@@ -22,7 +22,7 @@ Raspberry Pi 4 + External Camera
 Initially, our idea was to use the phone for productivity purposes, by delegating minimal but useful information from the big screen to the smaller phone screens. This is how we first strived to develop "Digital Sticky Notes". Instead of using paper sticky notes around the deskspace, room, house, one would place these old phones and from the connected computer, compose messages, tasks, figures, or motivation quotes and send them to each phone. The reader of the messages on the phone screens would also be able to interact with these screens to communicate back through these screens with a few simple touches of the screen. However, we found this idea not interactive enough for our liking.
 
 <img width="588" alt="image" src="https://user-images.githubusercontent.com/89954387/145902591-ab3ff7d7-b0c3-4d43-b33e-af3d0ad3fc43.png">
-
+<img width="588" alt="image" src="https://github.com/nicholasburka/IDD-final/blob/main/spacedesk-1.png">
 
 Our new idea is more suited for interactive purposes, by delegating segments of one image stream to however many screen devices connected to the host. This was done using MQTT Explorer. This opens up many possibilities for potential uses. The confusion caused by the breaking of the mechanism of how human process what s/he sees allows for interactive challenges that can explored in games, performance arts, or even film effects.
 
@@ -73,7 +73,7 @@ broker is running on the Pi) and the websocket port number from the broker confi
 
 Then upload the webpage or try opening it locally. If there are issues about an insecure connection, either allow the
 insecure connection to that specific URL by going into the browser's settings (tested on Chrome) or provide a 
-certificate. We at one point attempted to generate a certificate according to [this guide](http://www.steves-internet-guide.com/mosquitto-tls/), and seemed to get it working - be warned that the steps require careful attention, including to the author's
+certificate. We at one point attempted to generate an SSL certificate according to [this guide](http://www.steves-internet-guide.com/mosquitto-tls/), but couldn't get it working - be warned that the steps require careful attention, including to the author's
 sidenotes.
 
 If the webpage and video server connect, then the video server will split the video feed onto the connected screens
