@@ -30,6 +30,9 @@ Our new idea is more suited for interactive purposes, by delegating segments of 
 <img width="597" alt="image" src="https://user-images.githubusercontent.com/89954387/145912277-ade163df-e43e-4dcf-96f3-428ddf5339fa.png">
 
 
+## Mechanism
+Explanation of Mechanism
+
 ## Development phase
 
 MQTT Explorer (Photos)
