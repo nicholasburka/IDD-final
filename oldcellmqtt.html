@@ -18,29 +18,6 @@
 	<script>
 	var canvas = document.getElementById("canvas");
 	var ctx = canvas.getContext("2d");
-
-
-	mqtt = Paho.MQTT;
-	console.log(mqtt);
-	//from https://www.npmjs.com/package/paho-mqtt
-	client = new mqtt.Client('farlab.infosci.cornell.edu', Number(8083), "clientId");
-
-	client.onConnectionLost = onConnectionLost;
-	client.onMessageArrived = onMessageArrived;
-
-	client.connect({onSuccess:onConnect, 
-		onFailure:onFailure,
-		userName: 'idd', 
-		password:'device@theFarm', 
-		uris:['ws://100.64.0.108:8083'
-		],
-		//uris:['wss://broker.hivemq.com:8000/mqtt'],
-		//useSSL: true,
-		reconnect: true
-		//uris:['ws://broker.hivemq.com:8000/mqtt']
-		//'ws://farlab.infosci.cornell.edu:1883', 'ws://farlab.infosci.cornell.edu:8883', 
-	});
-
 	var this_net_id = 0;
 	const net_id_length = 5;
 
@@ -55,6 +32,34 @@
 		}
 		return result;
 	}
+	this_net_id = rand_id(net_id_length);
+
+	mqtt = Paho.MQTT;
+	console.log(mqtt);
+	//from https://www.npmjs.com/package/paho-mqtt
+	//client = new mqtt.Client('337a29823d8b4997a47058bcba8de6e5.s1.eu.hivemq.cloud', Number(8883), "");
+	client = new mqtt.Client('100.64.0.108', Number(8083), String(this_net_id));
+
+	client.onConnectionLost = onConnectionLost;
+	client.onMessageArrived = onMessageArrived;
+
+	client.connect({onSuccess:onConnect, 
+		onFailure:onFailure,
+		//userName: 'bigpicture',
+		//password: 'B1gpicture',
+		//password: 'bigpicture',
+		//userName: 'idd', 
+		//password:'device@theFarm', 
+		uris:['ws://10.56.253.48:9021'],
+		//uris:['wss://337a29823d8b4997a47058bcba8de6e5.s1.eu.hivemq.cloud:8883'],
+		//uris:['ws://broker.hivemq.com:8000/mqtt'],
+		//useSSL: true,
+		reconnect: true
+		//uris:['ws://broker.hivemq.com:8000/mqtt']
+		//'ws://farlab.infosci.cornell.edu:1883', 'ws://farlab.infosci.cornell.edu:8883', 
+	});
+
+	
 	//https://stackoverflow.com/questions/23104582/scaling-an-image-to-fit-on-canvas
 	function drawScaledImage(img, ctx) {
 		var canv = ctx.canvas;
@@ -66,10 +71,35 @@
 		ctx.clearRect(0,0,canvas.width, canvas.height);
 		ctx.drawImage(img, 0,0, img.width, img.height, centerShift_x, centerShift_y, img.width*ratio, img.height*ratio);
 	}
+	//https://www.w3resource.com/javascript-exercises/javascript-math-exercise-33.php
+	function degrees_to_radians(degrees) {
+	  var pi = Math.PI;
+	  return degrees * (pi/180);
+	}
+	function widescreenImage(img, ctx, rot) {
+		var canv = ctx.canvas;
+		var hRatio = canvas.width/img.width;
+		var vRatio = canvas.height/img.height;
+		var ratio = Math.max(hRatio, vRatio);
+		var centerShift_x = (canvas.width - img.width*ratio) / 2;
+		var centerShift_y = (canvas.height - img.height*ratio) / 2;
+		ctx.clearRect(0,0,canvas.width, canvas.height);
+		ctx.translate(canvas.width/2, canvas.height/2);
+		//ctx.rotate(rot);
+		ctx.translate(-canvas.width/2, -canvas.height/2);
+		ctx.drawImage(img, 0,0, img.width, img.height, centerShift_x, centerShift_y, img.width*ratio, img.height*ratio);
+	}
 
-	this_net_id = rand_id(net_id_length);
+	function selectedBorder(ctx) {
+		var canv = ctx.canvas;
+		ctx.strokeStyle = 'yellow';
+		lineWidth = 12;
+		ctx.strokeRect(0,0,canvas.width, canvas.height);
+	}
+
+	
 	handshook = false;
-	handshake_addr = 'oldphone/handshake6'
+	handshake_addr = 'oldphone/handshake7'
 
 	function onConnect() {
 		client.subscribe(handshake_addr);
@@ -83,6 +113,7 @@
 	}
 	console.log('test');
 
+	rotation = 0;
 	function onMessageArrived(message) {
 		console.log("onMessageArrived: "+message.payloadString);
 		//if two devices respond at same time
@@ -90,12 +121,18 @@
 			console.log("received handshake netid conf from server");
 			client.unsubscribe(handshake_addr);
 			client.subscribe(this_net_id);
+		} else if (message.payloadString.substr(0,3) === "SLC") {
+			rotation = message.payloadString.substr(3, message.payloadString.length);
+			selected = true
 		} else if (message.payloadString.length > 10) {
 			//https://moonbooks.org/Articles/How-to-add-a-base64-encoded-image-in-a-html-canvas-using-javascript-/
 			console.log("drawing img");
 			var image = new Image();
 			image.onload = function() {
-				drawScaledImage(image, ctx);
+				widescreenImage(image, ctx, rotation);
+				if (selected) {
+					selectedBorder(ctx);
+				}
 			};
 			image.src = "data:img/jpg;base64,"+message.payloadString;
 		}
