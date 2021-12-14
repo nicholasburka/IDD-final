@@ -40,7 +40,7 @@ The illustration suggests that many visual effects could be accomplished for som
 ![image](https://user-images.githubusercontent.com/89954387/145920336-aa8841d0-0d09-4108-a22c-48abde012543.png)
 
 
-## Development phase
+## Setup
 
 MQTT Explorer (Photos)
 
