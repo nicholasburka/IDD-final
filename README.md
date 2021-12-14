@@ -28,7 +28,7 @@ Initially, our idea was to use the phone for productivity purposes, by delegatin
 
 Our new idea is more suited for interactive purposes, by delegating segments of one image stream to however many screen devices connected to the host. This was done using MQTT Explorer. This opens up many possibilities for potential uses. The confusion caused by the breaking of the mechanism of how human process what s/he sees allows for interactive challenges that can explored in games, performance arts, or even film effects.
 
-<img width="597" alt="image" src="https://user-images.githubusercontent.com/89954387/145912277-ade163df-e43e-4dcf-96f3-428ddf5339fa.png">
+<img width="586" alt="image" src="https://user-images.githubusercontent.com/89954387/145922215-2d62b05f-8e9c-4558-b608-f7e0b9bc52aa.png">
 
 
 ## Storyboard
