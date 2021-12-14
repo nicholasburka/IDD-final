@@ -12,8 +12,12 @@ We’ve thought of several potential use cases, scaling in anticipated complexit
 
 ## Parts Needed
 Batch of old phones to test
+(Photo)
+
 
 Spacedesk (software) installed on the phone and computer
+(Photo)
+
 
 ## Ideation phase
 Initially, our idea was to use the phone for productivity purposes, by delegating minimal but useful information from the big screen to the smaller phone screens. This is how we first strived to develop "Digital Sticky Notes". Instead of using paper sticky notes around the deskspace, room, house, one would place these old phones and from the connected computer, compose messages, tasks, figures, or motivation quotes and send them to each phone. The reader of the messages on the phone screens would also be able to interact with these screens to communicate back through these screens with a few simple touches of the screen. However, we found this idea not interactive enough for our liking.
@@ -24,3 +28,16 @@ Initially, our idea was to use the phone for productivity purposes, by delegatin
 Our new idea is more suited for interactive purposes, by delegating segments of one image stream to however many screen devices connected to the host. This was done using MQTT Explorer. This opens up many possibilities for potential uses. The confusion caused by the breaking of the mechanism of how human process what s/he sees allows for interactive challenges that can explored in games, performance arts, or even film effects.
 
 <img width="597" alt="image" src="https://user-images.githubusercontent.com/89954387/145912277-ade163df-e43e-4dcf-96f3-428ddf5339fa.png">
+
+
+## Development phase
+
+MQTT Explorer (Photos)
+
+Devices connected through spacedesk (Photos)
+
+Coding (photos needed)
+
+
+## Demo
+Video during presentation
