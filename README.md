@@ -1,7 +1,5 @@
 # Final Project
-by Nicholas Burka (nab262)
-
-and Jeongmin Huh (jh2229)
+by Nicholas Burka (nab262) and Jeongmin Huh (jh2229)
 
 ## Big Idea
 
@@ -85,4 +83,6 @@ receives an ACK (acknowledgement) of its ID, it subscribes to the channel of its
 to display on the HTML5 canvas.<br>
 
 ## Demo
+<img width="588" alt="image" src="https://github.com/nicholasburka/IDD-final/blob/main/proto-setup.png">
+The prototype during demo day, working across 7 screen containers on 4 devices.<br>
 [Jeongmin and Nicholas pretending to be one body, using the completed 'ManyFrom1' Prototype](https://www.youtube.com/watch?v=doB3IrJ9eHw)
