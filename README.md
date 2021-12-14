@@ -11,13 +11,11 @@ We’ve thought of several potential use cases, scaling in anticipated complexit
 
 
 ## Parts Needed
-Batch of old phones to test
+Batch of old phones to test / multiple screens
+
 Raspberry Pi 4 + External Camera
-(Photo)
 
-
-Spacedesk (software) installed on the phone and computer
-(Photo)
+[Spacedesk](https://www.spacedesk.net/) (software) installed on the phone and computer
 
 
 ## Ideation phase
@@ -42,12 +40,47 @@ The illustration suggests that many visual effects could be accomplished for som
 
 ## Setup
 
-MQTT Explorer (Photos)
+The architecture of our system depends on running an MQTT broker (probably on a Raspberry Pi), an MQTT video streaming client (we also had this on the Raspberry Pi), and a live webpage on each client/screen container (we used this repo and hosted our static files on GitHub Pages). The webpage is oldcellmqtt.html, and the python code for the server is mqtt-slice-work-joy.py. The config file for the broker is m.conf.
 
-Devices connected through spacedesk (Photos)
+BROKER
+To get the server running, install mosquitto using sudo apt-get install mosquitto
 
-Coding (photos needed)
+To communicate with the web browser, the server has to be configured to use web sockets.
+To configure the MQTT server (called a broker) to use websockets, the server must be configured
+in a config file in /etc/mosquitto/conf.d/a_conf_file.conf. Our conf file is called m.conf, in this repo.
 
+For more info, check out:
+http://www.steves-internet-guide.com/mqtt-websockets/
+
+Pretty much all you have to do is designate a listener port and say websockets.
+Then you can get the broker up and running by running mosquitto -c /etc/mosquitto/conf.d/conf_file.conf
+If it works, there won't be any errors in the terminal. Sometimes we fixed errors by switching around the
+port number randomly, which might indicate that the problem comes from old mosquitto instances still running.
+
+VIDEO SERVER
+To get the video server running, configure the MQTT topic name and MQTT connection IP address and port. 
+The first will need to match the topic to be run in the webpage, and the 2nd and 3rd will need to match the broker. 
+
+Then run the video server by call python video_server_filename.py
+
+The video server won't begin streaming until at least 2 screens/screen containers have connected. This includes
+if one screen runs the same webpage in two windows - the video server will consider this 2 screens and begin
+streaming to them.
+
+WEBPAGE
+Match the MQTT topic to the video server. Match the IP address and port to the Broker's device IP address (the Pi's, if the
+broker is running on the Pi) and the websocket port number from the broker config file.
+
+Then upload the webpage or try opening it locally. If there are issues about an insecure connection, either allow the
+insecure connection to that specific URL by going into the browser's settings (tested on Chrome) or provide a 
+certificate. We at one point attempted to generate a certificate according to [this guide](http://www.steves-internet-guide.com/mosquitto-tls/), and seemed to get it working - be warned that the steps require careful attention, including to the author's
+sidenotes.
+
+If the webpage and video server connect, then the video server will split the video feed onto the connected screens
+once two screens have connected. If the web console is open, then a real-time feed of incoming MQTT messages will be displayed,
+including the handshake message. When the webpage attempts to connect, it sends a random session ID, and once the webpage
+receives an ACK (acknowledgement) of its ID, it subscribes to the channel of its ID, waiting for images from the video stream
+to display on the HTML5 canvas.
 
 ## Demo
-Video during presentation
+[Jeongmin and Nicholas pretending to become one body, using the completed 'ManyFrom1' Prototype](https://www.youtube.com/watch?v=doB3IrJ9eHw)
