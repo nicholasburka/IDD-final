@@ -12,6 +12,7 @@ We’ve thought of several potential use cases, scaling in anticipated complexit
 
 ## Parts Needed
 Batch of old phones to test
+Raspberry Pi 4 + External Camera
 (Photo)
 
 
@@ -30,8 +31,14 @@ Our new idea is more suited for interactive purposes, by delegating segments of 
 <img width="597" alt="image" src="https://user-images.githubusercontent.com/89954387/145912277-ade163df-e43e-4dcf-96f3-428ddf5339fa.png">
 
 
-## Mechanism
-Explanation of Mechanism
+## Storyboard
+
+<img width="1025" alt="image" src="https://user-images.githubusercontent.com/89954387/145920015-ae853088-5a6b-41d3-84f4-04076a52273b.png">
+
+This storyboard is inspired by the famous parable from India of the blind men and the elephant.
+The illustration suggests that many visual effects could be accomplished for something as simple as puzzles for children, or grandiose for large-scale concerts, or in films, not unlike that achieved in the iconic Bruce Lee scene in the 1974 film "Enter the Dragon".
+![image](https://user-images.githubusercontent.com/89954387/145920336-aa8841d0-0d09-4108-a22c-48abde012543.png)
+
 
 ## Development phase
 
