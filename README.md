@@ -85,4 +85,4 @@ receives an ACK (acknowledgement) of its ID, it subscribes to the channel of its
 to display on the HTML5 canvas.<br>
 
 ## Demo
-[Jeongmin and Nicholas pretending to become one body, using the completed 'ManyFrom1' Prototype](https://www.youtube.com/watch?v=doB3IrJ9eHw)
+[Jeongmin and Nicholas pretending to be one body, using the completed 'ManyFrom1' Prototype](https://www.youtube.com/watch?v=doB3IrJ9eHw)
