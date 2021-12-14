@@ -24,6 +24,7 @@ Initially, our idea was to use the phone for productivity purposes, by delegatin
 <img width="588" alt="image" src="https://user-images.githubusercontent.com/89954387/145902591-ab3ff7d7-b0c3-4d43-b33e-af3d0ad3fc43.png">
 <img width="588" alt="image" src="https://github.com/nicholasburka/IDD-final/blob/main/spacedesk-2.png">
 Using a phone as an extended display for computer performance monitoring.
+<br>
 
 Our new idea is more suited for interactive purposes, by delegating segments of one image stream to however many screen devices connected to the host. This was done using MQTT Explorer. This opens up many possibilities for potential uses. The confusion caused by the breaking of the mechanism of how human process what s/he sees allows for interactive challenges that can explored in games, performance arts, or even film effects.
 
@@ -41,47 +42,47 @@ The illustration suggests that many visual effects could be accomplished for som
 
 ## Setup
 
-The architecture of our system depends on running an MQTT broker (probably on a Raspberry Pi), an MQTT video streaming client (we also had this on the Raspberry Pi), and a live webpage on each client/screen container (we used this repo and hosted our static files on GitHub Pages). The webpage is oldcellmqtt.html, and the python code for the server is mqtt-slice-work-joy.py. The config file for the broker is m.conf.
+The architecture of our system depends on running an MQTT broker (probably on a Raspberry Pi), an MQTT video streaming client (we also had this on the Raspberry Pi), and a live webpage on each client/screen container (we used this repo and hosted our static files on GitHub Pages). The webpage is oldcellmqtt.html, and the python code for the server is mqtt-slice-work-joy.py. The config file for the broker is m.conf.<br>
 
-BROKER
+BROKER<br>
 To get the server running, install mosquitto using sudo apt-get install mosquitto
 
 To communicate with the web browser, the server has to be configured to use web sockets.
 To configure the MQTT server (called a broker) to use websockets, the server must be configured
-in a config file in /etc/mosquitto/conf.d/a_conf_file.conf. Our conf file is called m.conf, in this repo.
+in a config file in /etc/mosquitto/conf.d/a_conf_file.conf. Our conf file is called m.conf, in this repo.<br>
 
 For more info, check out:
-http://www.steves-internet-guide.com/mqtt-websockets/
+http://www.steves-internet-guide.com/mqtt-websockets/<br>
 
 Pretty much all you have to do is designate a listener port and say websockets.
 Then you can get the broker up and running by running mosquitto -c /etc/mosquitto/conf.d/conf_file.conf
 If it works, there won't be any errors in the terminal. Sometimes we fixed errors by switching around the
-port number randomly, which might indicate that the problem comes from old mosquitto instances still running.
+port number randomly, which might indicate that the problem comes from old mosquitto instances still running.<br>
 
-VIDEO SERVER
+VIDEO SERVER<br>
 To get the video server running, configure the MQTT topic name and MQTT connection IP address and port. 
-The first will need to match the topic to be run in the webpage, and the 2nd and 3rd will need to match the broker. 
+The first will need to match the topic to be run in the webpage, and the 2nd and 3rd will need to match the broker. <br>
 
-Then run the video server by call python video_server_filename.py
+Then run the video server by call python video_server_filename.py<br>
 
 The video server won't begin streaming until at least 2 screens/screen containers have connected. This includes
 if one screen runs the same webpage in two windows - the video server will consider this 2 screens and begin
-streaming to them.
+streaming to them.<br>
 
-WEBPAGE
+WEBPAGE<br>
 Match the MQTT topic to the video server. Match the IP address and port to the Broker's device IP address (the Pi's, if the
-broker is running on the Pi) and the websocket port number from the broker config file.
+broker is running on the Pi) and the websocket port number from the broker config file.<br>
 
 Then upload the webpage or try opening it locally. If there are issues about an insecure connection, either allow the
 insecure connection to that specific URL by going into the browser's settings (tested on Chrome) or provide a 
 certificate. We at one point attempted to generate an SSL certificate according to [this guide](http://www.steves-internet-guide.com/mosquitto-tls/), but couldn't get it working - be warned that the steps require careful attention, including to the author's
-sidenotes.
+sidenotes.<br>
 
 If the webpage and video server connect, then the video server will split the video feed onto the connected screens
 once two screens have connected. If the web console is open, then a real-time feed of incoming MQTT messages will be displayed,
 including the handshake message. When the webpage attempts to connect, it sends a random session ID, and once the webpage
 receives an ACK (acknowledgement) of its ID, it subscribes to the channel of its ID, waiting for images from the video stream
-to display on the HTML5 canvas.
+to display on the HTML5 canvas.<br>
 
 ## Demo
 [Jeongmin and Nicholas pretending to become one body, using the completed 'ManyFrom1' Prototype](https://www.youtube.com/watch?v=doB3IrJ9eHw)
